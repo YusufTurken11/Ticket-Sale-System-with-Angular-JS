@@ -1,0 +1,173 @@
+<div class="container">
+    <div class="row">
+        <div class="col-6">
+            <div class="card shadow">
+                <h2 class="text-center p-4">Customer Information</h2>
+                <hr class="m-0">
+                <div class="card-body">
+                    <label class="fs-5 ms-2">Name</label>
+                    <input type="text" class="form-control shadow-sm mt-2" #Name>
+                    <label class="mt-3 fs-5 ms-2">Surname</label>
+                    <input type="text" class="form-control shadow-sm mt-2" #Surname>
+                    <label class="mt-3 fs-5 ms-2">Gender</label>
+                    <select class="form-control mb-3 shadow-sm mt-2" #Gender>
+                        <option selected disabled>--Select gender--</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                    </select>
+                    <button class="btn btn-primary form-control mt-3 fs-4"
+                        (click)="addCustomer(Name.value,Surname.value,Gender.value)">Add Customer</button>
+                </div>
+            </div>
+
+            <div class="card shadow mt-4">
+                <h2 class="text-center p-4">Movie Information</h2>
+                <hr class="m-0">
+                <div class="card-body">
+                    <label class="fs-5 ms-2">Movie Name</label>
+                    <input type="text" class="form-control shadow-sm mt-2" #MovieName>
+                    <button class="btn btn-primary form-control mt-4 fs-4" (click)="addMovie(MovieName.value)">Add
+                        Movie</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-6">
+            <div class="card shadow">
+                <h2 class="text-center p-4">Buy Ticket</h2>
+                <hr class="m-0">
+                <div class="card-body">
+
+                    <label class="fs-5 ms-2">Select Customer</label>
+                    <select class="form-control mb-3 shadow-sm mt-2" #SoldTicketCustomer>
+                        <option value="{{item.Name}}" *ngFor="let item of getCustomerList()">{{item.Name+"
+                            "+item.Surname}}</option>
+                    </select>
+
+                    <label class="fs-5 ms-2 mt-3">Select Movie</label>
+                    <select id="movie" class="form-control mb-3 shadow-sm mt-2" #movieSelect>
+                        <option selected disabled>--Select Movie--</option>
+                        <!-- <option value="JohnWick">JohnWick</option>
+                        <option value="Matrix">Matrix</option>
+                        <option value="Batman">Batman</option>
+                        <option value="Superman">Superman</option>
+                        <option value="Trasnformers">Trasnformers</option> -->
+                        <option value="{{item.Name}}" *ngFor="let item of getMovieList()">{{item.Name}}</option>
+                    </select>
+
+                    <label class="fs-5 ms-2 mt-3">Select Session</label>
+                    <select id="movie" class="form-control mb-2 shadow-sm mt-2" #movieSession>
+                        <option selected disabled>--Select Session--</option>
+                        <option value="09:00">Session 09:00</option>
+                        <option value="12:00">Session 12:00</option>
+                        <option value="15:00">Session 15:00</option>
+                        <option value="18:00">Session 18:00</option>
+                        <option value="21:00">Session 21:00</option>
+                    </select>
+
+                    <label class="fs-5 ms-2 mt-3">Select Saloon</label>
+                    <select id="movie" class="form-control mb-2 shadow-sm mt-2" #movieSaloon>
+                        <option selected disabled>--Select Saloon--</option>
+                        <option value="Saloon 1">Saloon 1</option>
+                        <option value="Saloon 2">Saloon 2</option>
+                        <option value="Saloon 3">Saloon 3</option>
+                        <option value="Saloon 4">Saloon 4</option>
+                        <option value="Saloon 5">Saloon 5</option>
+                    </select>
+
+                    <label class="fs-5 ms-2 mt-2">Price</label>
+                    <input type="number" min="0" value="0" class="form-control shadow-sm mt-2" #ticketPrice>
+                    <label class="fs-5 ms-2 mt-2">Ticket Quantity</label>
+                    <input type="number" min="1" value="1" class="form-control shadow-sm mt-2" #ticketQuantity>
+
+                    <button class="btn btn-primary form-control fs-4 mt-4"
+                        (click)="addSoldTicket(SoldTicketCustomer.value,movieSelect.value,movieSession.value,movieSaloon.value,ticketPrice.value,ticketQuantity.value)">Sale
+                        Ticket</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <!-- İnformation Lists -->
+    <div class="row text-center">
+        <!-- Customer Table -->
+        <div class="col-12 my-3">
+            <h2>Customer List</h2>
+            <hr>
+            <table class="table table-hover table-bordered shadow">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Customer ID</th>
+                        <th>Customer Name</th>
+                        <th>Customer Surname</th>
+                        <th>Customer Gender</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of getCustomerList()">
+                        <td></td>
+                        <td>{{item.ID}}</td>
+                        <td>{{item.Name}}</td>
+                        <td>{{item.Surname}}</td>
+                        <td>{{item.Gender}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- Movie Table -->
+        <div class="col-12 mb-3">
+            <h2>Movie List</h2>
+            <hr>
+            <table class="table table-hover table-bordered shadow">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Movie ID</th>
+                        <th>Movie Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of getMovieList()">
+                        <td></td>
+                        <td>{{item.ID}} </td>
+                        <td>{{item.Name}}</td>
+
+                </tbody>
+            </table>
+        </div>
+        <!-- Sold Table -->
+        <div class="col-12 mb-3">
+            <h2>Sold Ticket List</h2>
+            <hr>
+            <table class="table table-hover table-bordered shadow">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Ticket ID</th>
+                        <th>Customer Name</th>
+                        <th>Movie Name</th>
+                        <th>Session Time</th>
+                        <th>Saloon Name</th>
+                        <th>Ticket Quantity</th>
+                        <th>Total Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of getTicketList()">
+                        <td></td>
+                        <td>{{item.ID}} </td>
+                        <td>{{item.CustomerName}} </td>
+                        <td>{{item.MovieName}} </td>
+                        <td>{{item.SessionTime}} </td>
+                        <td>{{item.SaloonName}} </td>
+                        <td>{{item.TicketQuantity}} </td>
+                        <td>{{item.TicketQuantity * item.Price}} </td>
+                        <td><button class="btn btn-danger" (click)="cancelButton(item.ID)">Cancel Ticket</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<hr>
